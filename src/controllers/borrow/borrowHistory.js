@@ -9,21 +9,22 @@ export const borrowHistory = asyncErrorHandler(async (req, res) => {
     const borrowHistories = await Borrow.find({
         user
     })
-        .populate('book', 'title author genre')
+        .populate('book', 'title author genre -_id')
+        .select('-_id')
         .sort({
             borrowDate: -1
         });
 
-    if (!borrowHistories) {
-        return res.status(StatusCodes.NOT_FOUND).json({
-            message: "Borrows not found.",
-            success: false,
-        });
-    }
-    
-    return res.status(StatusCodes.CREATED).json({
-        message: "Borrow history recevied successfully.",
-        success: true,
-        borrows: borrowHistories
+if (!borrowHistories) {
+    return res.status(StatusCodes.NOT_FOUND).json({
+        message: "Borrows not found.",
+        success: false,
     });
+}
+
+return res.status(StatusCodes.CREATED).json({
+    message: "Borrow history recevied successfully.",
+    success: true,
+    borrows: borrowHistories
+});
 })

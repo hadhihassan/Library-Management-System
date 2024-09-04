@@ -7,6 +7,7 @@ import { StatusCodes } from 'http-status-codes';
 export const borrowABook = asyncErrorHandler(async (req, res) => {
 
     const { userId: user } = req;
+    const { bookId, returnDate } = req.body;
 
     const isBooksExisting = await Books.findById(bookId);
     if (!isBooksExisting) {

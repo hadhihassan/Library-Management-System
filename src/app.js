@@ -4,6 +4,7 @@ import { graphqlHTTP } from "express-graphql";
 import authRouter from "./routes/authRoutes.js";
 import booksRouter from "./routes/booksRoutes.js";
 import borrowRoutes from "./routes/borrowRoutes.js";
+import reportRoutes from "./routes/reportRoutes.js";
 import { errorHandler } from './middleware/errorHandler.js'
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(authRouter)
 app.use(booksRouter)
 app.use(borrowRoutes)
+app.use(reportRoutes)
 app.use(errorHandler)
 // app.use("*",(req,res)=>{console.log("new one request", req)})
 
