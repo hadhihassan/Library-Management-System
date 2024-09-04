@@ -6,7 +6,7 @@ export const createBook = asyncErrorHandler(async (req, res) => {
     const { ISBN } = req.body;
 
     const isBookExisting = await Books.findOne({ ISBN })
-    if (isBookExisiting) {
+    if (isBookExisting) {
         return res.status(StatusCodes.CONFLICT).json({
             success: false,
             messaege: "Books already exists."

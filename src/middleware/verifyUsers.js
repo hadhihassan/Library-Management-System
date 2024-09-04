@@ -38,7 +38,7 @@ export async function verifyAdmin(req, res, next) {
 async function verifyTokenAndGetUser(token) {
     if (!token) throw { status: StatusCodes.UNAUTHORIZED, message: "Token not provided" };
 
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const decodedToken = jwt.verify(token.slice(7), process.env.JWT_SECRET_KEY);
     const objectId = new mongoose.Types.ObjectId(decodedToken.id);
     const userData = await User.findById(objectId);
     if (!userData) throw { status: StatusCodes.UNAUTHORIZED, message: "Invalid token" };

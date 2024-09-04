@@ -1,25 +1,29 @@
 import Books from '../../models/Book.js'
+import mongoose from 'mongoose';
 import { asyncErrorHandler } from '../../utils/asyncHandler.js'
 import { StatusCodes } from 'http-status-codes'
 
 export const editBook = asyncErrorHandler(async (req, res) => {
-    const { _id, ISBN } = req.body;
 
-    const isBookExisting = await Books.findOne({ ISBN })
-    if (isBookExisiting) {
-        return res.status(StatusCodes.CONFLICT).json({
+    const { id } = req.params
+    
+    const _id = new mongoose.Types.ObjectId(id);
+    const updatedBook = await Books.findByIdAndUpdate(
+        _id,
+        req.body,
+        { new: true }
+    );
+
+    if (!updatedBook) {
+        return res.status(StatusCodes.NOT_FOUND).json({
             success: false,
-            messaege: "Books already exists."
+            messaege: "Books not found."
         })
     }
-
-    const newBook = new Books(req.body);
-    await newBook.save();
-    delete newBook._id
-
-    return res.status(StatusCodes.CREATED).json({
-        message: "Book created successfully.",
+    delete updatedBook._id
+    return res.status(StatusCodes.OK).json({
+        message: "Book updated successfully.",
         success: true,
-        book: newBook
+        book: updatedBook
     });
 })

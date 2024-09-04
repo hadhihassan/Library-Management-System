@@ -46,13 +46,9 @@ const copiesValidation = [
         .isInt({ min: 1 }).withMessage('Number of copies must be a positive number.')
 ];
 const idValidation = [
-    body("_id")
+    param("id")
         .notEmpty().withMessage('ID is required.')
-        .isUUID().withMessage('ID must be a valid UUID.'),
 ];
-
-
-
 
 // Validation schema for books
 export const booksSchema = [
@@ -67,17 +63,9 @@ export const booksSchema = [
 // Validation schema for editing books
 export const booksEditSchema = [
     ...idValidation,
-    ...titleValidation,
-    ...authorValidation,
-    ...isbnValidation,
-    ...publicationDateValidation,
-    ...genreValidation,
-    ...copiesValidation
 ];
 
 // Validation schema for editing books
 export const booksDeleteSchema = [
-    param("_id")
-        .notEmpty().withMessage('ID is required.')
-        .isUUID().withMessage('ID must be a valid UUID.'),
+    ...idValidation,
 ];

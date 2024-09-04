@@ -15,10 +15,10 @@ app.use(express.urlencoded({ extended: true }));
 //     schema,
 //     graphiql: process.env.NODE_ENV = "development"
 // }))
-// app.use("*",(req,res)=>{console.log("new one request", req.path);res.send({ok:req})})
 
 
 app.use(authRouter)
 app.use(booksRouter)
+// app.use("*",(req,res)=>{console.log("new one request", req)})
 
 export default app;
