@@ -4,6 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 
 
 export const getMostBorrowedBooks = asyncErrorHandler(async (req, res) => {
+    
     const pipeline = [
         {
             $match: { isReturned: true }
@@ -34,6 +35,10 @@ export const getMostBorrowedBooks = asyncErrorHandler(async (req, res) => {
 
     const mostBorrowBooks = await Borrow.aggregate(pipeline);
 
-    console.log(mostBorrowBooks)
-    return res.json({ mostBorrowBooks });
+    
+    return res.status(StatusCodes.OK).json({
+        message: "Most borrow books.",
+        success: true,
+        borrow: mostBorrowBooks
+    });
 })

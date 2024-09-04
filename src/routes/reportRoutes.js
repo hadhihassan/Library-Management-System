@@ -1,7 +1,6 @@
 import express from 'express';
-import { loginUser, loginAdmin } from '../controllers/auth/loginUser.js'
-// import { registerUser } from '../controllers/report/activeMembers.js'
-// import {  } from '../controllers/report/booksAvailability.js'
+import { activeMembers } from '../controllers/report/activeMembers.js'
+import { booksAvailabilityStatus } from '../controllers/report/booksAvailability.js'
 import { getMostBorrowedBooks } from '../controllers/report/mostBorrowBooks.js'
 import { verifyUser } from '../middleware/verifyUsers.js';
 
@@ -16,20 +15,20 @@ routes.get(
     }
 )
 
-// routes.post(
-//     "/borrow-history",
-//     verifyUser,
-//     (req, res, next) => {
-//         borrowHistory(req, res);
-//     }
-// )
+routes.get(
+    "/active-user",
+    verifyUser,
+    (req, res, next) => {
+        activeMembers(req, res);
+    }
+)
 
-// routes.post(
-//     "/borrow-history",
-//     verifyUser,
-//     (req, res, next) => {
-//         borrowHistory(req, res);
-//     }
-// )
+routes.get(
+    "/books-availability",
+    verifyUser,
+    (req, res, next) => {
+        booksAvailabilityStatus(req, res);
+    }
+)
 
 export default routes
