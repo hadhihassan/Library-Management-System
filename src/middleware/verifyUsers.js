@@ -25,6 +25,12 @@ export async function verifyAdmin(req, res, next) {
         const token = req.headers.authorization;
         const adminData = await verifyTokenAndGetUser(token);
 
+        if (adminData.role !== "Admin") {
+            return res
+                .status(error.status || StatusCodes.UNAUTHORIZED)
+                .json({ message: "Your not admin" });
+        }
+
         req.adminId = adminData._id;
         next()
     } catch (error) {
