@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { graphqlHTTP } from "express-graphql";
 import authRouter from "./routes/authRoutes.js";
+import booksRouter from "./routes/booksRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -18,5 +19,6 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use(authRouter)
+app.use(booksRouter)
 
 export default app;

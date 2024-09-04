@@ -2,8 +2,8 @@ import Books from '../../models/Book.js'
 import { asyncErrorHandler } from '../../utils/asyncHandler.js'
 import { StatusCodes } from 'http-status-codes'
 
-export const createBook = asyncErrorHandler(async (req, res) => {
-    const { ISBN } = req.body;
+export const editBook = asyncErrorHandler(async (req, res) => {
+    const { _id, ISBN } = req.body;
 
     const isBookExisting = await Books.findOne({ ISBN })
     if (isBookExisiting) {
@@ -19,7 +19,7 @@ export const createBook = asyncErrorHandler(async (req, res) => {
 
     return res.status(StatusCodes.CREATED).json({
         message: "Book created successfully.",
-        success : true,
+        success: true,
         book: newBook
     });
 })

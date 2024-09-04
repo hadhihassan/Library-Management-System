@@ -11,7 +11,8 @@ const bookSchema = new mongoose.Schema({
     },
     ISBN: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     publicationDate: {
         type: Date,
