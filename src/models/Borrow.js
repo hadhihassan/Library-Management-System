@@ -9,7 +9,10 @@ const borrowSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Book',
         required: true
-
+    },
+    isReturned: {
+        type: Boolean,
+        default: false
     },
     borrowDate: {
         type: Date,

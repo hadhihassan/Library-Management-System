@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import { graphqlHTTP } from "express-graphql";
 import authRouter from "./routes/authRoutes.js";
 import booksRouter from "./routes/booksRoutes.js";
+import borrowRoutes from "./routes/borrowRoutes.js";
+import { errorHandler } from './middleware/errorHandler.js'
 
 dotenv.config();
 const app = express();
@@ -19,6 +21,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(authRouter)
 app.use(booksRouter)
+app.use(borrowRoutes)
+app.use(errorHandler)
 // app.use("*",(req,res)=>{console.log("new one request", req)})
 
 export default app;

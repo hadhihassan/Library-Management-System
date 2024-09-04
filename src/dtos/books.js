@@ -24,12 +24,6 @@ const publicationDateValidation = [
     body("publicationDate")
         .notEmpty().withMessage('Publication date is required.')
         .isDate().withMessage('Invalid date format.')
-];
-
-const genreValidation = [
-    body("genre")
-        .trim()
-        .notEmpty().withMessage("Genre is required")
         .custom((value) => {
             const today = new Date();
             const inputDate = new Date(value);
@@ -38,6 +32,12 @@ const genreValidation = [
             }
             return true;
         })
+];
+
+const genreValidation = [
+    body("genre")
+        .trim()
+        .notEmpty().withMessage("Genre is required")
 ];
 
 const copiesValidation = [
