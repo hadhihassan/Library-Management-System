@@ -26,22 +26,19 @@ The project is organized root main folders:
 
 1. Clone the Repository
 
-```
-      bash
+```bash
      git clone https://github.com/your-username/Nalanda-Library-Management-System.git
 ```
 
 
 2. Install dependencies:
-    ```
-        bash
+    ```bash
        cd Nalanda-Library-Management-System/src
        npm install
     ```
     
 3. Start the server:
-    ```
-       bash
+    ```bash
        npm start
     ```
 
