@@ -27,16 +27,16 @@ The project is organized root main folders:
 1. Clone the Repository
 
   ```bash
-   git clone https://github.com/your-username/Nalanda-Library-Management-System.git
+     git clone https://github.com/your-username/Nalanda-Library-Management-System.git
     ```
 2. Install dependencies:
     ```bash
-    cd Nalanda-Library-Management-System/src
-    npm install
+       cd Nalanda-Library-Management-System/src
+       npm install
     ```
 3. Start the server:
     ```bash
-    npm start
+       npm start
     ```
 
 ## Environment Variables
@@ -45,7 +45,8 @@ Set up the environment variables in the `.env` files for  server.
 
 ### server (`.env`)
 
-```
+   ```bash
+   
 PORT=http://your_server_url
 
 MONGO_URL=YOUR_MONGO_URL
@@ -55,6 +56,7 @@ JWT_SECRET_KEY=YOUR_JWT_SECRET
 
 
 ## API Documentations
+
 
 REST API Documentation
 
