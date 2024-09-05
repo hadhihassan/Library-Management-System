@@ -20,8 +20,8 @@ export const BookType = new GraphQLObjectType({
         ISBN: { type: GraphQLString },
         publicationDate: { type: GraphQLString },
         genre: { type: GraphQLString },
-        numberOfCopies: { type: GraphQLString },
-        availableCopies: { type: GraphQLString }
+        numberOfCopies: { type: GraphQLInt }, // Changed to GraphQLInt
+        availableCopies: { type: GraphQLInt } // Changed to GraphQLInt
     })
 });
 
@@ -44,5 +44,13 @@ export const PaginatedBooksType = new GraphQLObjectType({
         page: { type: GraphQLInt },
         limit: { type: GraphQLInt },
         books: { type: new GraphQLList(BookType) },
+    }
+});
+
+
+export const DeleteBookResponseType = new GraphQLObjectType({
+    name: 'DeleteBookResponse',
+    fields: {
+        message: { type: GraphQLString }
     }
 });

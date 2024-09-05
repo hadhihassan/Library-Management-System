@@ -1,7 +1,6 @@
-import User from '../../models/User.js'
 import Book from '../../models/Book.js'
 import { GraphQLString, GraphQLID, GraphQLList, GraphQLInt } from 'graphql'
-import { BookType, PaginatedBooksType } from '../types/types.js'
+import { BookType, PaginatedBooksType, DeleteBookResponseType } from '../types/types.js'
 import { booksAlterSchema, booksSchema, deleteBookSchema } from '../validationSchema/booksSchema.js'
 import mongoose from 'mongoose'
 
@@ -9,7 +8,7 @@ import mongoose from 'mongoose'
 export const booksQuery = {
     books: {
         type: new GraphQLList(BookType),
-        resovle: async () => await Book.find()
+        resolve: async () => await Book.find()
     },
     book: {
         type: BookType,
@@ -18,17 +17,17 @@ export const booksQuery = {
     }
 }
 
-//Books Mutation
+// Books Mutation
 export const BooksMutations = {
     ListAllBooks: {
-        type: PaginatedBooksType, 
+        type: PaginatedBooksType,
         args: {
-            page: { type: GraphQLInt, defaultValue: 1 },
-            limit: { type: GraphQLInt, defaultValue: 10 },
+            page: { type: GraphQLInt },
+            limit: { type: GraphQLInt },
             genre: { type: GraphQLString },
             author: { type: GraphQLString },
         },
-        resolve: async (_, { page, limit, genre, author }) => {
+        resolve: async (_, { page = 1, limit = 10, genre, author }) => {
             const pageNumber = parseInt(page, 10);
             const pageSize = parseInt(limit, 10);
 
@@ -64,7 +63,7 @@ export const BooksMutations = {
         args: {
             title: { type: GraphQLString },
             author: { type: GraphQLString },
-            ISBN: { type: GraphQLInt },
+            ISBN: { type: GraphQLString },
             publicationDate: { type: GraphQLString },
             genre: { type: GraphQLString },
             copies: { type: GraphQLInt },
@@ -73,27 +72,24 @@ export const BooksMutations = {
             const { error } = booksSchema.validate(args);
 
             if (error) {
-                throw new Error(error.details[0].message)
+                throw new Error(error.details[0].message);
             }
 
             const { ISBN } = args;
 
-            const isBookExisting = await Book.findOne({ ISBN })
+            const isBookExisting = await Book.findOne({ ISBN });
             if (isBookExisting) {
-                throw new Error("Books already exists.")
+                throw new Error("Book already exists.");
             }
 
             const newBook = new Book(args);
             await newBook.save();
 
-            return {
-                message: "Book created successfully.",
-                book: newBook
-            }
+            return newBook
         }
     },
     deleteBook: {
-        type: GraphQLID,
+        type: DeleteBookResponseType,
         args: {
             id: { type: GraphQLID },
         },
@@ -101,19 +97,17 @@ export const BooksMutations = {
             const { error } = deleteBookSchema.validate({ id });
 
             if (error) {
-                throw new Error(error.details[0].message)
+                throw new Error(error.details[0].message);
             }
 
             const _id = new mongoose.Types.ObjectId(id);
-            const result = await Book.deleteOne(
-                { _id },
-            );
+            const result = await Book.deleteOne({ _id });
 
             if (result.deletedCount === 0) {
-                throw new Error("Books not found.")
+                throw new Error("Book not found.");
             }
 
-            return "Book deleted successfully."
+            return { message: "Book deleted successfully." };
         }
     },
     editBook: {
@@ -122,7 +116,7 @@ export const BooksMutations = {
             id: { type: GraphQLID },
             title: { type: GraphQLString },
             author: { type: GraphQLString },
-            ISBN: { type: GraphQLInt },
+            ISBN: { type: GraphQLString },
             publicationDate: { type: GraphQLString },
             genre: { type: GraphQLString },
             copies: { type: GraphQLInt },
@@ -150,4 +144,4 @@ export const BooksMutations = {
             return updatedBook;
         }
     }
-}
+};

@@ -14,7 +14,7 @@ const RootMutation = new GraphQLObjectType({
     name: 'RootMutation',
     fields: {
         ...userMutations,
-        BooksMutations
+        ...BooksMutations
     }
 });
 
