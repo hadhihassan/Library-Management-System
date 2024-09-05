@@ -47,7 +47,6 @@ export const BooksMutations = {
             const books = await Book.find(filter)
                 .skip(skip)
                 .limit(pageSize)
-                .exec();
 
             return {
                 totalBooks,
@@ -124,7 +123,7 @@ export const BooksMutations = {
         resolve: async (_, args) => {
             const { id, ...bookData } = args;
 
-            const { error } = booksAlterSchema.validate(bookData, { allowUnknown: true });
+            const { error } = booksAlterSchema.validate(args, { allowUnknown: true });
             if (error) {
                 throw new Error(error.details[0].message);
             }

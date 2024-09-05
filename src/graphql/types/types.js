@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLList, GraphQLInt } from 'graphql'
+import { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLList, GraphQLInt, GraphQLBoolean } from 'graphql'
 
 export const UserType = new GraphQLObjectType({
     name: 'User',
@@ -20,19 +20,20 @@ export const BookType = new GraphQLObjectType({
         ISBN: { type: GraphQLString },
         publicationDate: { type: GraphQLString },
         genre: { type: GraphQLString },
-        numberOfCopies: { type: GraphQLInt }, // Changed to GraphQLInt
-        availableCopies: { type: GraphQLInt } // Changed to GraphQLInt
+        numberOfCopies: { type: GraphQLInt }, 
+        availableCopies: { type: GraphQLInt } 
     })
 });
 
 export const BorrowType = new GraphQLObjectType({
     name: 'Borrow',
     fields: () => ({
-        id: { type: GraphQLID },
-        book: { type: BookType },
+        _id: { type: GraphQLID },
         user: { type: UserType },
+        book: { type: BookType },
+        isReturned: { type: GraphQLBoolean },
+        returnDate: { type: GraphQLString },
         borrowedDate: { type: GraphQLString },
-        returnDate: { type: GraphQLString }
     })
 });
 
