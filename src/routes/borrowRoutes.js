@@ -18,7 +18,7 @@ routes.post(
     }
 )
 
-routes.post(
+routes.patch(
     "/return/:id",
     verifyUser,
     borrowIdValidation,
@@ -28,7 +28,7 @@ routes.post(
     }
 )
 
-routes.post(
+routes.get(
     "/borrow-history",
     verifyUser,
     (req, res, next) => {

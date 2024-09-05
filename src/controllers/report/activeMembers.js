@@ -31,13 +31,6 @@ export const activeMembers = asyncErrorHandler(async (req, res) => {
                 borrowCount: -1
             }
         }
-        , {
-            $project: {
-                name: 1,
-                _id: 0,
-                email: 1
-            }
-        }
     ]
 
     const activeUseresBorrows = await Borrow.aggregate(pipeline);

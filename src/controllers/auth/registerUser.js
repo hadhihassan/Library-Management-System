@@ -20,7 +20,7 @@ export const registerUser = asyncErrorHandler(async (req, res) => {
 
     const userInput = { ...req.body, password: hashedPassword };
     await User.create(userInput);
-    
+
     return res.status(StatusCodes.CREATED).json({
         success: true,
         message: "Successfully registed your accound",
