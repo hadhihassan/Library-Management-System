@@ -48,6 +48,24 @@ Set up the environment variables in the `.env` files for  server.
 ```env
 PORT=http://your_server_url
 
+
+
+
+
+## API Documentations
+
+REST API Documentation
+
+```bash
+   https://documenter.getpostman.com/view/31696244/2sAXjPzpgy
+```
+GraphQl API Documentation
+
+```bash
+   https://documenter.getpostman.com/view/31696244/2sAXjQ2AK8
+```
+
+
 MONGO_URL=YOUR_MONGO_URL
 
 JWT_SECRET_KEY=YOUR_JWT_SECRET
